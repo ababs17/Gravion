@@ -1,15 +1,19 @@
-type OwnerSet @entity(immutable: true) {
-  id: Bytes!
-  owner: Bytes! # address
+
+type Transaction @entity {
+  id: ID!
   blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  timestamp: BigInt!
+  owner: String!
 }
 
-type ImplementationSet @entity(immutable: true) {
-  id: Bytes!
-  implementation: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+type OwnerSet @entity {
+  id: ID!
+  newOwner: String!
+  transaction: Transaction! @derivedFrom(field: "id")
+}
+
+type ImplementationSet @entity {
+  id: ID!
+  newImplementation: String!
+  transaction: Transaction! @derivedFrom(field: "id")
 }
